@@ -1,3 +1,7 @@
+/* 
+    COT4400.901 Project 2
+    Peter Stilian, Emily Cardella, Sarah Shand, Johnathan Teav
+*/
 #include <cstdio>
 #include <iostream>
 #include <cstdlib>
