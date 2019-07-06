@@ -34,6 +34,8 @@ int main(){
         }
         file.close();
     }
+    
+    //use vectors to fill look-up table
 
     // need to find best minimum height aka optimal substructure
 
