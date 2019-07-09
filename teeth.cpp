@@ -8,12 +8,13 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
+#include <map>
 
 using namespace std;
+vector<int> topOutput;
+vector<int> bottomOutput;
 
-int LT[n + 1][m + 1] = { -1 };
-
-void ToothRecursive(int x, int y, int minVal) {
+void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
 	// add current value of LT[x][y] to return vetor
 
@@ -21,33 +22,8 @@ void ToothRecursive(int x, int y, int minVal) {
 		return;
 	}
 	
-	
-	
+	return 
 }
-
-
-vector<int> ToothWrapper(int n,int m, vector<int>topTeeth, vector<int>bottomTeeth) {
-	int minVal;
-
-	// Initialize lookup table to -1 amd values of top and bottom teeth
-    for(int i = 0 ; i < m; i++){
-        for(int j = 0; j < n; j++){
-            LookupTable[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
-        }
-    }
-
-	int leftMolar = LookupTable[1][1];
-	int rightMolar = LookupTable[n][m];
-	if (leftMolar < rightMolar) {
-		minVal = leftMolar;
-	}
-	else {
-		minVal = rightMolar;
-	}
-	
-	return ToothRecursive(1, 1, minVal);
-}
-
 
 int main(){
     int n,m,temp;
@@ -74,6 +50,26 @@ int main(){
     }
     
     //use vectors to fill look-up table
+    int minVal;
+    vector<vector<int>> LT(m+1, vector<int>(n+1, -1));
+
+	// Initialize lookup table to -1 amd values of top and bottom teeth
+    for(int i = 0 ; i < m; i++){
+        for(int j = 0; j < n; j++){
+            LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
+        }
+    }
+
+	int leftMolar = LT[1][1];
+	int rightMolar = LT[n][m];
+	if (leftMolar < rightMolar) {
+		minVal = leftMolar;
+	}
+	else {
+		minVal = rightMolar;
+	}
+	
+	map<int,int> output = ToothRecursive(1, 1, minVal, LT);
 
     // need to find best minimum height aka optimal substructure
 
