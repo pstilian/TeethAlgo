@@ -19,9 +19,11 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
 	int rightMove = LT[x + 1][y];
 	int downMove = LT[x][y + 1];
-	int diagnalMove LT[x + 1][y + 1];
+	int diagnalMove = LT[x + 1][y + 1];
 
 	// add current value of LT[x][y] to return vetor
+	topOutput.push_back(LT[x][1]);
+	bottomOutput.push_back(LT[1][y]);
 
 	// if teeth aligned and at end of array 
 	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
@@ -44,12 +46,38 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	}
 
 	else {
+			//if right value is the smallest
+			if(rightMove < downMove && rightMove < diagnalMove){
+				//if a new min is required
+				if(minVal < rightMove){
+					minVal = rightMove;
+				}
+				ToothRecursive(x + 1, y, minVal, LT);
+			}
+			//if down value is the smallest
+			else if(downMove < rightMove && downMove < diagnalMove){
+				//if a new min is required
+				if(minVal < downMove){
+					minVal = downMove;
+				}
+				ToothRecursive(x, y + 1, minVal, LT);
+			}
+			//if diagnal value is smallest, or the values are equal
+			else if(diagnalMove <= rightMove && diagnalMove <= downMove){
+				//if a new min is required
+				if(minVal < diagnalMove){
+					minVal = diagnalMove;
+				}
+				ToothRecursive(x + 1, y + 1, minVal, LT);
+			}
+
+		}
+
 		// find smallest value of rightMove, downMove, diagnalMove 
 		// if smallest of the 3 values is greater than minVal make that new minVal
 		// Call recursive function that goes that direction
 	}
-	
-	return // something?
+return // something?
 }
 
 int main(){
