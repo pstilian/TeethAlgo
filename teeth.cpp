@@ -27,13 +27,18 @@ void ToothRecursive(int x, int y, int LT[][], int minVal) {
 
 
 
-vector<int> ToothWrapper(int n,int m) {
+vector<int> ToothWrapper(int n,int m, vector<int>topTeeth, vector<int>bottomTeeth) {
 	int minVal;
-	int LookupTable[n + 1][m + 1];
+	int LookupTable[n + 1][m + 1] = {-1};
 	// Initialize lookup table to -1 amd values of top and bottom teeth
+    for(int i = 0 ; i < m; i++){
+        for(int j = 0; j < n; j++){
+            LookupTable[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
+        }
+    }
 
-	leftMolar = LookupTable[1][1];
-	rightMolar = LookupTable[n][m];
+	int leftMolar = LookupTable[1][1];
+	int rightMolar = LookupTable[n][m];
 	if (leftMolar < rightMolar) {
 		minVal = leftMolar;
 	}
