@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 #include <map>
 
 using namespace std;
@@ -16,10 +17,36 @@ vector<int> bottomOutput;
 
 void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
+	int rightMove = LT[x + 1][y];
+	int downMove = LT[x][y + 1];
+	int diagnalMove LT[x + 1][y + 1];
+
 	// add current value of LT[x][y] to return vetor
 
-	if (LT[x + 1][y + 1] == -1 && LT[x + 1][y] == -1 && LT[x][y + 1] == -1) {
+	// if teeth aligned and at end of array 
+	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
 		return;
+	}
+
+	// if no need to grow teeth progress normally
+	else if (diagnalMove <= minVal && diagnalMove != -1) {
+		ToothRecursive(x + 1, y + 1, minVal, LT);
+	}
+
+	// if there are no teeth left on top row grow new top tooth
+	else if (rightMove == -1 && downMove != -1) {
+		ToothRecursive(x, y + 1, minVal, LT);
+	}
+
+	// if there are no teeth left on bottom grow new bottom tooth
+	else if (downMove == -1 && rightMove != -1) {
+		ToothRecursive(x + 1, y, minVal, LT);
+	}
+
+	else {
+		// find smallest value of rightMove, downMove, diagnalMove 
+		// if smallest of the 3 values is greater than minVal make that new minVal
+		// Call recursive function that goes that direction
 	}
 	
 	return 
