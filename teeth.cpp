@@ -7,6 +7,40 @@
 
 using namespace std;
 
+
+void ToothRecursive(int x, int y, int LT[][], int minVal) {
+
+	// add current value of LT[x][y] to return vetor
+
+	if (LT[x + 1][y + 1] == -1 && LT[x + 1][y] == -1 && LT[x][y + 1] == -1) {
+		return;
+	}
+	
+	
+	
+}
+
+
+
+
+vector<int> ToothWrapper(int n,int m) {
+	int minVal;
+	int LookupTable[n + 1][m + 1];
+	// Initialize lookup table to -1 amd values of top and bottom teeth
+
+	leftMolar = LookupTable[1][1];
+	rightMolar = LookupTable[n][m];
+	if (leftMolar < rightMolar) {
+		minVal = leftMolar;
+	}
+	else {
+		minVal = rightMolar;
+	}
+	
+	return ToothRecursive(1, 1, LookupTable, minVal);
+}
+
+
 int main(){
     int n,m,temp;
 
