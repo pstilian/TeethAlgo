@@ -49,7 +49,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 		// Call recursive function that goes that direction
 	}
 	
-	return 
+	return // something?
 }
 
 int main(){
@@ -76,17 +76,18 @@ int main(){
         file.close();
     }
     
-    //use vectors to fill look-up table
+    // Initialize lookup table to -1 amd values of top and bottom teeth
     int minVal;
     vector<vector<int>> LT(m+1, vector<int>(n+1, -1));
 
-	// Initialize lookup table to -1 amd values of top and bottom teeth
+	// populate lookup table with sum of teeth sizes
     for(int i = 0 ; i < m; i++){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
         }
     }
 
+	// Find minVal base case
 	int leftMolar = LT[1][1];
 	int rightMolar = LT[n][m];
 	if (leftMolar < rightMolar) {
@@ -96,11 +97,9 @@ int main(){
 		minVal = rightMolar;
 	}
 	
+	// Call recursive function
 	map<int,int> output = ToothRecursive(1, 1, minVal, LT);
 
-    // need to find best minimum height aka optimal substructure
-
-    // sort algorithm and re-arrange teeth
 
     // output new data to file "output.txt"
 
