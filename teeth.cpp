@@ -11,8 +11,9 @@
 
 using namespace std;
 
+int LT[n + 1][m + 1] = { -1 };
 
-void ToothRecursive(int x, int y, int LT[][], int minVal) {
+void ToothRecursive(int x, int y, int minVal) {
 
 	// add current value of LT[x][y] to return vetor
 
@@ -25,11 +26,9 @@ void ToothRecursive(int x, int y, int LT[][], int minVal) {
 }
 
 
-
-
 vector<int> ToothWrapper(int n,int m, vector<int>topTeeth, vector<int>bottomTeeth) {
 	int minVal;
-	int LookupTable[n + 1][m + 1] = {-1};
+
 	// Initialize lookup table to -1 amd values of top and bottom teeth
     for(int i = 0 ; i < m; i++){
         for(int j = 0; j < n; j++){
@@ -46,7 +45,7 @@ vector<int> ToothWrapper(int n,int m, vector<int>topTeeth, vector<int>bottomTeet
 		minVal = rightMolar;
 	}
 	
-	return ToothRecursive(1, 1, LookupTable, minVal);
+	return ToothRecursive(1, 1, minVal);
 }
 
 
