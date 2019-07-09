@@ -22,8 +22,8 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	int diagnalMove = LT[x + 1][y + 1];
 
 	// add current value of LT[x][y] to return vetor
-	topOutput.push_back(LT[x][1]);
-	bottomOutput.push_back(LT[1][y]);
+	topOutput.push_back(LT[x][y]);
+	bottomOutput.push_back(LT[x][y]);
 
 	// if teeth aligned and at end of array 
 	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
@@ -45,6 +45,11 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 		ToothRecursive(x + 1, y, minVal, LT);
 	}
 
+	/*	
+	Find smallest value of rightMove, downMove, diagnalMove
+	if smallest of the 3 values is greater than minVal make that new minVal
+	and call recursive function that goes that direction
+	*/
 	else {
 			//if right value is the smallest
 			if(rightMove < downMove && rightMove < diagnalMove){
@@ -72,16 +77,13 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 			}
 
 		}
-
-		// find smallest value of rightMove, downMove, diagnalMove 
-		// if smallest of the 3 values is greater than minVal make that new minVal
-		// Call recursive function that goes that direction
 	}
-return // something?
+return;
 }
 
 int main(){
     int n,m,temp;
+	int minVal;
 
     ifstream file("input.txt");
     file >> n >> m;
@@ -105,7 +107,6 @@ int main(){
     }
     
     // Initialize lookup table to -1 amd values of top and bottom teeth
-    int minVal;
     vector<vector<int>> LT(m+1, vector<int>(n+1, -1));
 
 	// populate lookup table with sum of teeth sizes
@@ -126,11 +127,14 @@ int main(){
 	}
 	
 	// Call recursive function
-	map<int,int> output = ToothRecursive(1, 1, minVal, LT);
+	ToothRecursive(1, 1, minVal, LT);
 
 
     // output new data to file "output.txt"
+	ofstream file("output.txt");
 
+	// do the rest of output format  
+		 
 
     return 0;
 }
