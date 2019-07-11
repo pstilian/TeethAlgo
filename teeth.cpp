@@ -28,6 +28,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	topOutput.push_back(topTeeth[x]);
 	bottomOutput.push_back(bottomTeeth[y]);
 
+	cout << "minVal:     " << minVal << endl;
 	cout << "Right Move: " << rightMove << endl;
 	cout << "Diag Move:  " << diagnalMove << endl;
 	cout << "Down Move:  " << downMove << endl;
@@ -91,7 +92,6 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 				cout << "Making Diagnal Move" << endl;
 				ToothRecursive(x + 1, y + 1, minVal, LT);
 			}
-
 	}
 }
 
@@ -132,7 +132,7 @@ int main(){
 
 	// Find minVal base case
 	int leftMolar = LT[0][0];
-	int rightMolar = LT[n][m];
+	int rightMolar = LT[n-1][m-1];
 	if (leftMolar < rightMolar) {
 		minVal = leftMolar;
 	}
