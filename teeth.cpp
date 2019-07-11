@@ -51,14 +51,16 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 
 	// if there are no teeth left on top row grow new top tooth
 	else if (rightMove == -1 && downMove != -1) {
+		cout << "Growing new top teeth." << endl;
 		ToothRecursive(x, y + 1, LT);
-		cout<< "Growing new top teeth." << endl;
+
 	}
 
 	// if there are no teeth left on bottom grow new bottom tooth
 	else if (downMove == -1 && rightMove != -1) {
+		cout << "Growing new bottom teeth." << endl;
 		ToothRecursive(x + 1, y, LT);
-		cout<< "Growing new bottom teeth." << endl;
+
 	}
 
 	/*	
