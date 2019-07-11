@@ -10,8 +10,11 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <string>
 
 using namespace std;
+vector<int> topTeeth;
+vector<int> bottomTeeth;
 vector<int> topOutput;
 vector<int> bottomOutput;
 
@@ -22,8 +25,8 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	int diagnalMove = LT[x + 1][y + 1];
 
 	// add current value of LT[x][y] to return vetor
-	topOutput.push_back(LT[x][y]);
-	bottomOutput.push_back(LT[x][y]);
+	topOutput.push_back(topTeeth[x]);
+	bottomOutput.push_back(bottomTeeth[y]);
 
 	// if teeth aligned and at end of array 
 	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
@@ -86,8 +89,6 @@ int main(){
 
     ifstream file("input.txt");
     file >> n >> m;
-    vector<int> topTeeth;
-    vector<int> bottomTeeth;
 
     // Reads data from input file "input.txt" and initializes it to the arrays topTeeth and bottomTeeth
     if(file.is_open()){
@@ -117,7 +118,7 @@ int main(){
     }
 
 	// Find minVal base case
-	int leftMolar = LT[1][1];
+	int leftMolar = LT[0][0];
 	int rightMolar = LT[n][m];
 	if (leftMolar < rightMolar) {
 		minVal = leftMolar;
@@ -127,7 +128,7 @@ int main(){
 	}
 	
 	// Call recursive function
-	ToothRecursive(1, 1, minVal, LT);
+	ToothRecursive(0, 0, minVal, LT);
 
 
     // output new data to file "output.txt"
@@ -138,7 +139,7 @@ int main(){
 	//cout << minVal << endl;
 
 	// outputs all corresponding teeth values in order
-	for (int i = 0; i < topOutput.size(); i++) {
+	for (int i = topOutput.size() - 1 ; i >= 0; i--) {
 		out_file << topOutput[i] << " " << bottomOutput[i] << endl;
 		cout << topOutput[i] << " " << bottomOutput[i] << endl;
 	}
