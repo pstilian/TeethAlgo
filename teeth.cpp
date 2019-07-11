@@ -28,6 +28,11 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	topOutput.push_back(topTeeth[x]);
 	bottomOutput.push_back(bottomTeeth[y]);
 
+	cout << "Right Move: " << rightMove << endl;
+	cout << "Diag Move:  " << diagnalMove << endl;
+	cout << "Down Move:  " << downMove << endl;
+
+
 	// if teeth aligned and at end of array 
 	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
 		return;
@@ -36,6 +41,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	// if no need to grow teeth progress normally
 	else if (diagnalMove <= minVal && diagnalMove != -1) {
 		ToothRecursive(x + 1, y + 1, minVal, LT);
+		cout << "Making diagnal move " << endl;
 	}
 
 	// if there are no teeth left on top row grow new top tooth
@@ -55,19 +61,24 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 	*/
 	else {
 			//if right value is the smallest
-			if(rightMove < downMove && rightMove < diagnalMove){
+			if(rightMove <= downMove && rightMove <= diagnalMove){
 				//if a new min is required
 				if(minVal < rightMove){
 					minVal = rightMove;
 				}
+
+				cout << "Making Right Move" << endl;
+
 				ToothRecursive(x + 1, y, minVal, LT);
 			}
 			//if down value is the smallest
-			else if(downMove < rightMove && downMove < diagnalMove){
+			else if(downMove <= rightMove && downMove <= diagnalMove){
 				//if a new min is required
 				if(minVal < downMove){
 					minVal = downMove;
 				}
+
+				cout << "Making Down Move" << endl;
 				ToothRecursive(x, y + 1, minVal, LT);
 			}
 			//if diagnal value is smallest, or the values are equal
@@ -76,6 +87,8 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 				if(minVal < diagnalMove){
 					minVal = diagnalMove;
 				}
+
+				cout << "Making Diagnal Move" << endl;
 				ToothRecursive(x + 1, y + 1, minVal, LT);
 			}
 
@@ -141,7 +154,7 @@ int main(){
 	// outputs all corresponding teeth values in order
 	for (int i = topOutput.size() - 1 ; i >= 0; i--) {
 		out_file << topOutput[i] << " " << bottomOutput[i] << endl;
-		cout << topOutput[i] << " " << bottomOutput[i] << endl;
+		//cout << topOutput[i] << " " << bottomOutput[i] << endl;
 	}
 
 	out_file.close();
