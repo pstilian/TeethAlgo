@@ -19,7 +19,7 @@ vector<int> topOutput;
 vector<int> bottomOutput;
 int minVal;
 
-void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
+void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 
 	int rightMove = LT[x + 1][y];
 	int downMove = LT[x][y + 1];
@@ -42,18 +42,18 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
 	// if no need to grow teeth progress normally
 	else if (diagnalMove <= minVal && diagnalMove != -1) {
-		ToothRecursive(x + 1, y + 1, minVal, LT);
+		ToothRecursive(x + 1, y + 1, LT);
 		cout << "Making diagnal move " << endl;
 	}
 
 	// if there are no teeth left on top row grow new top tooth
 	else if (rightMove == -1 && downMove != -1) {
-		ToothRecursive(x, y + 1, minVal, LT);
+		ToothRecursive(x, y + 1, LT);
 	}
 
 	// if there are no teeth left on bottom grow new bottom tooth
 	else if (downMove == -1 && rightMove != -1) {
-		ToothRecursive(x + 1, y, minVal, LT);
+		ToothRecursive(x + 1, y, LT);
 	}
 
 	/*	
@@ -71,7 +71,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
 				cout << "Making Right Move" << endl;
 
-				ToothRecursive(x + 1, y, minVal, LT);
+				ToothRecursive(x + 1, y, LT);
 			}
 			//if down value is the smallest
 			else if(downMove <= rightMove && downMove <= diagnalMove){
@@ -81,7 +81,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 				}
 
 				cout << "Making Down Move" << endl;
-				ToothRecursive(x, y + 1, minVal, LT);
+				ToothRecursive(x, y + 1, LT);
 			}
 			//if diagnal value is smallest, or the values are equal
 			else if(diagnalMove <= rightMove && diagnalMove <= downMove){
@@ -91,7 +91,7 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 				}
 
 				cout << "Making Diagnal Move" << endl;
-				ToothRecursive(x + 1, y + 1, minVal, LT);
+				ToothRecursive(x + 1, y + 1, LT);
 			}
 	}
 }
@@ -141,7 +141,7 @@ int main(){
 	}
 	
 	// Call recursive function
-	ToothRecursive(0, 0, minVal, LT);
+	ToothRecursive(0, 0, LT);
 
 
     // output new data to file "output.txt"
