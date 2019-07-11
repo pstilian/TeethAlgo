@@ -25,7 +25,7 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	int downMove = LT[x][y + 1];
 	int diagnalMove = LT[x + 1][y + 1];
 
-	// add current value of LT[x][y] to return vetor
+	// add current value of corresponding teeth to return vetor
 	topOutput.push_back(topTeeth[x]);
 	bottomOutput.push_back(bottomTeeth[y]);
 
@@ -43,8 +43,9 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 
 	// if no need to grow teeth progress normally
 	else if (diagnalMove <= minVal && diagnalMove != -1) {
-		ToothRecursive(x + 1, y + 1, LT);
 		cout << "Making diagnal move " << endl;
+
+		ToothRecursive(x + 1, y + 1, LT);
 	}
 
 	// if there are no teeth left on top row grow new top tooth
