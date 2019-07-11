@@ -147,14 +147,16 @@ int main(){
     // output new data to file "output.txt"
 	ofstream out_file("output.txt");
 
-	// output min height
+	//output min height
+	
 	//out_file << minVal << endl;
-	//cout << minVal << endl;
+	cout << "***OUTPUT***" << endl;
+	cout << minVal << endl;
 
 	// outputs all corresponding teeth values in order
 	for (int i = topOutput.size() - 1 ; i >= 0; i--) {
 		out_file << topOutput[i] << " " << bottomOutput[i] << endl;
-		//cout << topOutput[i] << " " << bottomOutput[i] << endl;
+		cout << topOutput[i] << " " << bottomOutput[i] << endl;
 	}
 
 	out_file.close();
