@@ -19,7 +19,7 @@ vector<int> topOutput;
 vector<int> bottomOutput;
 int minVal;
 
-void ToothRecursive(int x, int y, vector<vector<int>> LT) {
+void ToothRecursive(int x, int y, vector<vector<int>> &LT) {
 
 	int rightMove = LT[x + 1][y];
 	int downMove = LT[x][y + 1];
