@@ -161,7 +161,7 @@ int main(){
     // output new data to file "output.txt"
 	ofstream out_file("output.txt");
 	
-	//out_file << minVal << endl;
+	out_file << minVal << endl;
 	cout << "***OUTPUT***" << endl;
 	cout << minVal << endl;
 
