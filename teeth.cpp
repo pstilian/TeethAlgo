@@ -53,8 +53,8 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	else if (rightMove == -1 && downMove != -1) {
 		cout << "Growing new top teeth." << endl;
 
-		if (minVal < rightMove) {
-			minVal = rightMove;
+		if (minVal < downMove) {
+			minVal = downMove;
 		}
 		ToothRecursive(x, y + 1, LT);
 
@@ -64,8 +64,8 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	else if (downMove == -1 && rightMove != -1) {
 		cout << "Growing new bottom teeth." << endl;
 
-		if (minVal < downMove) {
-			minVal = downMove;
+		if (minVal < rightMove) {
+			minVal = rightMove;
 		}
 		ToothRecursive(x + 1, y, LT);
 
