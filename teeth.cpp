@@ -28,7 +28,7 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	// add current value of corresponding teeth to return vetor
 	topOutput.push_back(topTeeth[x]);
 	bottomOutput.push_back(bottomTeeth[y]);
-	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[y] << "   " << topTeeth[x] << endl;
+	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[x] << "   " << topTeeth[y] << endl;
 
 	cout << "minVal:     " << minVal << endl;
 	cout << "Right Move: " << rightMove << endl;
@@ -131,7 +131,6 @@ int main(){
     for(int i = 0 ; i < m; i++){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
-			cout << LT[i][j] << '\t';
         }
 		cout << endl;
     }
