@@ -28,6 +28,7 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	// add current value of corresponding teeth to return vetor
 	topOutput.push_back(topTeeth[x]);
 	bottomOutput.push_back(bottomTeeth[y]);
+	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[y] << "   " << topTeeth[x] << endl;
 
 	cout << "minVal:     " << minVal << endl;
 	cout << "Right Move: " << rightMove << endl;
@@ -149,8 +150,6 @@ int main(){
 
     // output new data to file "output.txt"
 	ofstream out_file("output.txt");
-
-	//output min height
 	
 	//out_file << minVal << endl;
 	cout << "***OUTPUT***" << endl;
