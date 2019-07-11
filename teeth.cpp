@@ -131,7 +131,9 @@ int main(){
     for(int i = 0 ; i < m; i++){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
+			cout << LT[i][j] << '\t';
         }
+		cout << endl;
     }
 
 	// Find minVal base case
