@@ -17,6 +17,7 @@ vector<int> topTeeth;
 vector<int> bottomTeeth;
 vector<int> topOutput;
 vector<int> bottomOutput;
+int minVal;
 
 void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
@@ -98,7 +99,6 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 
 int main(){
     int n,m,temp;
-	int minVal;
 
     ifstream file("input.txt");
     file >> n >> m;
