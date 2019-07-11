@@ -70,7 +70,6 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 				}
 
 				cout << "Making Right Move" << endl;
-
 				ToothRecursive(x + 1, y, LT);
 			}
 			//if down value is the smallest
