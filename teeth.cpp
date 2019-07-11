@@ -76,10 +76,9 @@ void ToothRecursive(int x, int y, int minVal, vector<vector<int>> LT) {
 				ToothRecursive(x + 1, y + 1, minVal, LT);
 			}
 
-		}
 	}
-return;
 }
+
 
 int main(){
     int n,m,temp;
@@ -95,14 +94,15 @@ int main(){
         for(int i = 0 ; i < n ; i++){
             file >> temp;
             topTeeth.push_back(temp);
-            cout << topTeeth.at(i);
+            cout << topTeeth.at(i) << " ";
         }
         cout << endl;
         for(int i = 0 ; i < m ; i++){
             file >> temp;
             bottomTeeth.push_back(temp);
-            cout << bottomTeeth.at(i);
+            cout << bottomTeeth.at(i) << " ";
         }
+		cout << endl;
         file.close();
     }
     
@@ -131,9 +131,19 @@ int main(){
 
 
     // output new data to file "output.txt"
-	ofstream file("output.txt");
+	ofstream out_file("output.txt");
 
-	// do the rest of output format  
+	// output min height
+	//out_file << minVal << endl;
+	//cout << minVal << endl;
+
+	// outputs all corresponding teeth values in order
+	for (int i = 0; i < topOutput.size(); i++) {
+		out_file << topOutput[i] << " " << bottomOutput[i] << endl;
+		cout << topOutput[i] << " " << bottomOutput[i] << endl;
+	}
+
+	out_file.close();
 		 
 
     return 0;
