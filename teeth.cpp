@@ -52,6 +52,10 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	// if there are no teeth left on top row grow new top tooth
 	else if (rightMove == -1 && downMove != -1) {
 		cout << "Growing new top teeth." << endl;
+
+		if (minVal < rightMove) {
+			minVal = rightMove;
+		}
 		ToothRecursive(x, y + 1, LT);
 
 	}
@@ -59,6 +63,10 @@ void ToothRecursive(int x, int y, vector<vector<int>> LT) {
 	// if there are no teeth left on bottom grow new bottom tooth
 	else if (downMove == -1 && rightMove != -1) {
 		cout << "Growing new bottom teeth." << endl;
+
+		if (minVal < downMove) {
+			minVal = downMove;
+		}
 		ToothRecursive(x + 1, y, LT);
 
 	}
@@ -134,7 +142,6 @@ int main(){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
         }
-		cout << endl;
     }
 
 	// Find minVal base case
