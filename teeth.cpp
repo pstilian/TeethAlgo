@@ -9,17 +9,8 @@
 using namespace std;
 vector<int> topTeeth;
 vector<int> bottomTeeth;
-vector<int> topOutput;
-vector<int> bottomOutput;
-vector<int> tempTopOutput1;
-vector<int> tempBottomOutput1;
-vector<int> tempTopOutput2;
-vector<int> tempBottomOutput2;
-int minVal;
-int tempMin1;
-int tempMin2;
 
-void ToothRecursive(int x, int y, vector<vector<int>> &LT, int min, vector<int> &topOut, vector<int> &bottomOut) {
+void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int> &topOut, vector<int> &bottomOut) {
 
 	int rightMove = LT[x + 1][y];
 	int downMove = LT[x][y + 1];
@@ -30,7 +21,7 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int min, vector<int> 
 	bottomOut.push_back(bottomTeeth[x]);
 	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[x] << "   " << topTeeth[y] << endl;
 
-	cout << "minVal:     " << minVal << endl;
+	cout << "minVal:     " << min << endl;
 	cout << "Right Move: " << rightMove << endl;
 	cout << "Diag Move:  " << diagnalMove << endl;
 	cout << "Down Move:  " << downMove << endl;
@@ -79,20 +70,25 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int min, vector<int> 
 	else {
 		//if right and down are both equal to the min
 		if(rightMove == downMove){
-			tempMin1 = minVal;
-			tempMin2 = minVal;
+			int tempMin1 = min;
+			int tempMin2 = min;
+			vector<int> tempTopOutput1;
+			vector<int> tempBottomOutput1;
+			vector<int> tempTopOutput2;
+			vector<int> tempBottomOutput2;
+
 			ToothRecursive(x + 1, y, LT, tempMin1, tempTopOutput1, tempBottomOutput1);
 			ToothRecursive(x, y + 1, LT, tempMin2, tempTopOutput2, tempBottomOutput2);
 
-			if(tempMin1 > tempMin2){
-				minVal = tempMin1;
-				topOutput.insert(topOutput.end(), tempTopOutput1.begin(), tempTopOutput1.end());
-				bottomOutput.insert(bottomOutput.end(), tempBottomOutput1.begin(), tempBottomOutput1.end());
+			if(tempMin1 < tempMin2){
+				min = tempMin1;
+				topOut.insert(topOut.end(), tempTopOutput1.begin(), tempTopOutput1.end());
+				bottomOut.insert(bottomOut.end(), tempBottomOutput1.begin(), tempBottomOutput1.end());
 			}
 			else{
-				minVal = tempMin2;
-				topOutput.insert(topOutput.end(), tempTopOutput2.begin(), tempTopOutput2.end());
-				bottomOutput.insert(bottomOutput.end(), tempBottomOutput2.begin(), tempBottomOutput2.end());
+				min = tempMin2;
+				topOut.insert(topOut.end(), tempTopOutput2.begin(), tempTopOutput2.end());
+				bottomOut.insert(bottomOut.end(), tempBottomOutput2.begin(), tempBottomOutput2.end());
 			}
 		}
 		//if right value is the smallest
@@ -159,13 +155,16 @@ int main(){
     for(int i = 0 ; i < m; i++){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
+			cout << LT[i][j] << '\t';
         }
+		cout << endl;
     }
 
 	// Find minVal base case
 	int leftMolar = LT[0][0];
 	int rightMolar = LT[n-1][m-1];
-	if (leftMolar < rightMolar) {
+	int minVal;
+	if (leftMolar > rightMolar) {
 		minVal = leftMolar;
 	}
 	else {
@@ -173,6 +172,8 @@ int main(){
 	}
 	
 	// Call recursive function
+	vector<int> topOutput;
+	vector<int> bottomOutput;
 	ToothRecursive(0, 0, LT, minVal, topOutput, bottomOutput);
 
 
