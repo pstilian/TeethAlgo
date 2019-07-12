@@ -2,32 +2,32 @@
     COT4400.901 Project 2
     Peter Stilian, Emily Cardella, Sarah Shand, Johnathan Teav
 */
-#include <cstdio>
 #include <iostream>
-#include <cstdlib>
-#include <iomanip>
 #include <fstream>
 #include <vector>
-#include <algorithm>
-#include <map>
-#include <string>
 
 using namespace std;
 vector<int> topTeeth;
 vector<int> bottomTeeth;
 vector<int> topOutput;
 vector<int> bottomOutput;
+vector<int> tempTopOutput1;
+vector<int> tempBottomOutput1;
+vector<int> tempTopOutput2;
+vector<int> tempBottomOutput2;
 int minVal;
+int tempMin1;
+int tempMin2;
 
-void ToothRecursive(int x, int y, vector<vector<int>> &LT) {
+void ToothRecursive(int x, int y, vector<vector<int>> &LT, int min, vector<int> &topOut, vector<int> &bottomOut) {
 
 	int rightMove = LT[x + 1][y];
 	int downMove = LT[x][y + 1];
 	int diagnalMove = LT[x + 1][y + 1];
 
 	// add current value of corresponding teeth to return vetor
-	topOutput.push_back(topTeeth[y]);
-	bottomOutput.push_back(bottomTeeth[x]);
+	topOut.push_back(topTeeth[y]);
+	bottomOut.push_back(bottomTeeth[x]);
 	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[x] << "   " << topTeeth[y] << endl;
 
 	cout << "minVal:     " << minVal << endl;
@@ -43,20 +43,20 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT) {
 	}
 
 	// if no need to grow teeth progress normally
-	else if (diagnalMove <= minVal && diagnalMove != -1) {
+	else if (diagnalMove <= min && diagnalMove != -1) {
 		cout << "Making diagnal move " << endl;
 
-		ToothRecursive(x + 1, y + 1, LT);
+		ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
 	}
 
 	// if there are no teeth left on top row grow new top tooth
 	else if (rightMove == -1 && downMove != -1) {
 		cout << "Growing new top teeth." << endl;
 
-		if (minVal < downMove) {
-			minVal = downMove;
+		if (min < downMove) {
+			min = downMove;
 		}
-		ToothRecursive(x, y + 1, LT);
+		ToothRecursive(x, y + 1, LT, min, topOut, bottomOut);
 
 	}
 
@@ -64,10 +64,10 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT) {
 	else if (downMove == -1 && rightMove != -1) {
 		cout << "Growing new bottom teeth." << endl;
 
-		if (minVal < rightMove) {
-			minVal = rightMove;
+		if (min < rightMove) {
+			min = rightMove;
 		}
-		ToothRecursive(x + 1, y, LT);
+		ToothRecursive(x + 1, y, LT, min, topOut, bottomOut);
 
 	}
 
@@ -77,36 +77,54 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT) {
 	and call recursive function that goes that direction
 	*/
 	else {
-			//if right value is the smallest
-			if(rightMove <= downMove && rightMove <= diagnalMove){
-				//if a new min is required
-				if(minVal < rightMove){
-					minVal = rightMove;
-				}
+		//if right and down are both equal to the min
+		if(rightMove == downMove){
+			tempMin1 = minVal;
+			tempMin2 = minVal;
+			ToothRecursive(x + 1, y, LT, tempMin1, tempTopOutput1, tempBottomOutput1);
+			ToothRecursive(x, y + 1, LT, tempMin2, tempTopOutput2, tempBottomOutput2);
 
-				cout << "Making Right Move" << endl;
-				ToothRecursive(x + 1, y, LT);
+			if(tempMin1 > tempMin2){
+				minVal = tempMin1;
+				topOutput.insert(topOutput.end(), tempTopOutput1.begin(), tempTopOutput1.end());
+				bottomOutput.insert(bottomOutput.end(), tempBottomOutput1.begin(), tempBottomOutput1.end());
 			}
-			//if down value is the smallest
-			else if(downMove <= rightMove && downMove <= diagnalMove){
-				//if a new min is required
-				if(minVal < downMove){
-					minVal = downMove;
-				}
+			else{
+				minVal = tempMin2;
+				topOutput.insert(topOutput.end(), tempTopOutput2.begin(), tempTopOutput2.end());
+				bottomOutput.insert(bottomOutput.end(), tempBottomOutput2.begin(), tempBottomOutput2.end());
+			}
+		}
+		//if right value is the smallest
+		else if(rightMove <= downMove && rightMove <= diagnalMove){
+			//if a new min is required
+			if(min < rightMove){
+				min = rightMove;
+			}
 
-				cout << "Making Down Move" << endl;
-				ToothRecursive(x, y + 1, LT);
+			cout << "Making Right Move" << endl;
+			ToothRecursive(x + 1, y, LT, min, topOut, bottomOut);
+		}
+		//if down value is the smallest
+		else if(downMove <= rightMove && downMove <= diagnalMove){
+		//if a new min is required
+			if(min < downMove){
+				min = downMove;
 			}
-			//if diagnal value is smallest, or the values are equal
-			else if(diagnalMove <= rightMove && diagnalMove <= downMove){
-				//if a new min is required
-				if(minVal < diagnalMove){
-					minVal = diagnalMove;
-				}
 
-				cout << "Making Diagnal Move" << endl;
-				ToothRecursive(x + 1, y + 1, LT);
+			cout << "Making Down Move" << endl;
+			ToothRecursive(x, y + 1, LT, min, topOut, bottomOut);
+		}
+		//if diagnal value is smallest, or the values are equal
+		else if(diagnalMove <= rightMove && diagnalMove <= downMove){
+			//if a new min is required
+			if(min < diagnalMove){
+				min = diagnalMove;
 			}
+
+			cout << "Making Diagnal Move" << endl;
+			ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
+		}
 	}
 }
 
@@ -155,7 +173,7 @@ int main(){
 	}
 	
 	// Call recursive function
-	ToothRecursive(0, 0, LT);
+	ToothRecursive(0, 0, LT, minVal, topOutput, bottomOutput);
 
 
     // output new data to file "output.txt"
