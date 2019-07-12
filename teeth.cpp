@@ -19,31 +19,19 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 	// add current value of corresponding teeth to return vetor
 	topOut.push_back(topTeeth[y]);
 	bottomOut.push_back(bottomTeeth[x]);
-	cout << "ADDING THE FOLLOWING VALS : " << bottomTeeth[x] << "   " << topTeeth[y] << endl;
-
-	cout << "minVal:     " << min << endl;
-	cout << "Right Move: " << rightMove << endl;
-	cout << "Diag Move:  " << diagnalMove << endl;
-	cout << "Down Move:  " << downMove << endl;
-
 
 	// if teeth aligned and at end of array 
 	if (diagnalMove == -1 && rightMove == -1 && downMove == -1) {
-		cout << "Teeth are aligned." << endl;
 		return;
 	}
 
 	// if no need to grow teeth progress normally
 	else if (diagnalMove <= min && diagnalMove != -1) {
-		cout << "Making diagnal move " << endl;
-
 		ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
 	}
 
 	// if there are no teeth left on top row grow new top tooth
 	else if (rightMove == -1 && downMove != -1) {
-		cout << "Growing new top teeth." << endl;
-
 		if (min < downMove) {
 			min = downMove;
 		}
@@ -53,13 +41,10 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 
 	// if there are no teeth left on bottom grow new bottom tooth
 	else if (downMove == -1 && rightMove != -1) {
-		cout << "Growing new bottom teeth." << endl;
-
 		if (min < rightMove) {
 			min = rightMove;
 		}
 		ToothRecursive(x + 1, y, LT, min, topOut, bottomOut);
-
 	}
 
 	/*	
@@ -68,15 +53,12 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 	and call recursive function that goes that direction
 	*/
 	else {
-
 		//if diagnal value is smallest, or the values are equal
 		if (diagnalMove <= rightMove && diagnalMove <= downMove) {
 		//if a new min is required
-		if (min < diagnalMove) {
-			min = diagnalMove;
-		}
-
-		cout << "Making Diagnal Move" << endl;
+			if (min < diagnalMove) {
+				min = diagnalMove;
+			}
 		ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
 		}
 
@@ -110,8 +92,6 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 			if(min < rightMove){
 				min = rightMove;
 			}
-
-			cout << "Making Right Move" << endl;
 			ToothRecursive(x + 1, y, LT, min, topOut, bottomOut);
 		}
 		//if down value is the smallest
@@ -120,8 +100,6 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 			if(min < downMove){
 				min = downMove;
 			}
-
-			cout << "Making Down Move" << endl;
 			ToothRecursive(x, y + 1, LT, min, topOut, bottomOut);
 		}
 	}
@@ -139,15 +117,11 @@ int main(){
         for(int i = 0 ; i < n ; i++){
             file >> temp;
             topTeeth.push_back(temp);
-            cout << topTeeth.at(i) << " ";
         }
-        cout << endl;
         for(int i = 0 ; i < m ; i++){
             file >> temp;
             bottomTeeth.push_back(temp);
-            cout << bottomTeeth.at(i) << " ";
         }
-		cout << endl;
         file.close();
     }
     
@@ -159,7 +133,6 @@ int main(){
         for(int j = 0; j < n; j++){
             LT[i][j] = topTeeth.at(j) + bottomTeeth.at(i);
         }
-		cout << endl;
     }
 
 	// Find minVal base case
@@ -183,17 +156,13 @@ int main(){
 	ofstream out_file("output.txt");
 	
 	out_file << minVal << endl;
-	cout << "***OUTPUT***" << endl;
-	cout << minVal << endl;
 
 	// outputs all corresponding teeth values in order
 	for (int i = 0 ; i < topOutput.size() ; i++) {
 		out_file << topOutput[i] << " " << bottomOutput[i] << endl;
-		cout << topOutput[i] << " " << bottomOutput[i] << endl;
 	}
 
 	out_file.close();
 		 
-
     return 0;
 }
