@@ -68,8 +68,20 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 	and call recursive function that goes that direction
 	*/
 	else {
+
+		//if diagnal value is smallest, or the values are equal
+		if (diagnalMove <= rightMove && diagnalMove <= downMove) {
+		//if a new min is required
+		if (min < diagnalMove) {
+			min = diagnalMove;
+		}
+
+		cout << "Making Diagnal Move" << endl;
+		ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
+		}
+
 		//if right and down are both equal to the min
-		if(rightMove == downMove){
+		else if(rightMove == downMove){
 			int tempMin1 = min;
 			int tempMin2 = min;
 			vector<int> tempTopOutput1;
@@ -91,8 +103,9 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 				bottomOut.insert(bottomOut.end(), tempBottomOutput2.begin(), tempBottomOutput2.end());
 			}
 		}
+
 		//if right value is the smallest
-		else if(rightMove <= downMove && rightMove <= diagnalMove){
+		else if(rightMove < downMove && rightMove < diagnalMove){
 			//if a new min is required
 			if(min < rightMove){
 				min = rightMove;
@@ -102,7 +115,7 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 			ToothRecursive(x + 1, y, LT, min, topOut, bottomOut);
 		}
 		//if down value is the smallest
-		else if(downMove <= rightMove && downMove <= diagnalMove){
+		else if(downMove < rightMove && downMove < diagnalMove){
 		//if a new min is required
 			if(min < downMove){
 				min = downMove;
@@ -110,16 +123,6 @@ void ToothRecursive(int x, int y, vector<vector<int>> &LT, int &min, vector<int>
 
 			cout << "Making Down Move" << endl;
 			ToothRecursive(x, y + 1, LT, min, topOut, bottomOut);
-		}
-		//if diagnal value is smallest, or the values are equal
-		else if(diagnalMove <= rightMove && diagnalMove <= downMove){
-			//if a new min is required
-			if(min < diagnalMove){
-				min = diagnalMove;
-			}
-
-			cout << "Making Diagnal Move" << endl;
-			ToothRecursive(x + 1, y + 1, LT, min, topOut, bottomOut);
 		}
 	}
 }
